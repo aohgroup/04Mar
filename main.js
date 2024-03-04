@@ -1,7 +1,10 @@
 
 
-var url = "http://localhost:3000/posts";
+//var url = "http://localhost:3000/posts";
+var url = "https://3000-aohgroup-04mar-mnb5mz3ukp1.ws-us108.gitpod.io/comments";
+
 var global;
+
 
 function Load() {
     fetch(url).then(
@@ -59,8 +62,8 @@ function Create(data) {
     )
 }
 
-function Edit(id,data){
-    fetch(url+"/"+id, {
+function Edit(id, data) {
+    fetch(url + "/" + id, {
         method: 'PUT',
         body: JSON.stringify(data),
         headers: {
@@ -79,8 +82,9 @@ function Save() {
 
         var newItem = {
             id: (getMaxId() + 1) + "",
-            userId: document.getElementById("userId").value,
-            title: document.getElementById("title").value,
+            postId: document.getElementById("postId").value,
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
             body: document.getElementById("body").value
         }
         //debugger;
@@ -89,19 +93,21 @@ function Save() {
         if (!findID(id + "")) {
             var newItem = {
                 id: id + "",
-                userId: document.getElementById("userId").value,
-                title: document.getElementById("title").value,
+                postId: document.getElementById("postId").value,
+                name: document.getElementById("name").value,
+                email: document.getElementById("email").value,
                 body: document.getElementById("body").value
             }
             //debugger;
             Create(newItem);
         } else {
             var editItem = {
-                userId: document.getElementById("userId").value,
-                title: document.getElementById("title").value,
+                postId: document.getElementById("postId").value,
+                name: document.getElementById("name").value,
+                email: document.getElementById("email").value,
                 body: document.getElementById("body").value
             }
-            Edit(id,editItem);
+            Edit(id, editItem);
         }
     }
 }
@@ -110,10 +116,12 @@ function Save() {
 function ConvertDataPostToRow(post) {
     var string = '<tr>';
     string += '<td>' + post.id + '</td>'
-    string += '<td>' + post.userId + '</td>'
-    string += '<td>' + post.title + '</td>'
+    string += '<td>' + post.postId + '</td>'
+    string += '<td>' + post.name + '</td>'
+    string += '<td>' + post.email + '</td>'
     string += '<td>' + post.body + '</td>'
     string += '<td><button onClick ="Delete(' + post.id + ')">Delete</button></td>'
     string += '</tr>'
     return string;
 }
+
